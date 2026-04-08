@@ -1,0 +1,11 @@
+--- lang.cpp
++++ lang.cpp
+@@ -10,6 +10,8 @@
+ #include <stack>
+ #include <unordered_map>
+ 
++std::vector<std::string> global_trace;
++
+ struct Value {
+   virtual ~Value() {}
+   virtual std::string toString() const = 0;

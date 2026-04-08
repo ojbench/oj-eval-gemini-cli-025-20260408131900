@@ -1,0 +1,22 @@
+--- lang.cpp
++++ lang.cpp
+@@ -10,6 +10,8 @@
+ #include <stack>
+ #include <unordered_map>
+ 
++std::vector<std::string> global_trace;
++
+ struct Value {
+   virtual ~Value() {}
+   virtual std::string toString() const = 0;
+@@ -241,6 +243,10 @@
+     return iv->value;
+   };
+ 
++  if (func == "scan" || func == "print" || func == "array.create" || func == "array.scan" || func == "array.print" || func == "array.get" || func == "array.set") {
++    global_trace.push_back(func);
++  }
++
+   if (func == "+") {
+     requireArity(2);
+     int x = readInt(0), y = readInt(1);

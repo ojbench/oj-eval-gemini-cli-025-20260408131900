@@ -1,0 +1,64 @@
+--- main.cpp
++++ main.cpp
+@@ -88,44 +88,53 @@
+   std::vector<std::string> tokens;
+ 
+   int visitFunctionDeclaration(FunctionDeclaration *node) override {
+     tokens.push_back("Func");
+     visitStatement(node->body);
++    return 0;
+   }
+ 
+   int visitExpressionStatement(ExpressionStatement *node) override {
+     visitExpression(node->expr);
++    return 0;
+   }
+   int visitSetStatement(SetStatement *node) override {
+     tokens.push_back("Set");
+     visitExpression(node->value);
++    return 0;
+   }
+   int visitIfStatement(IfStatement *node) override {
+     tokens.push_back("If");
+     visitExpression(node->condition);
+     visitStatement(node->body);
++    return 0;
+   }
+   int visitForStatement(ForStatement *node) override {
+     tokens.push_back("For");
+     visitStatement(node->init);
+     visitExpression(node->test);
+     visitStatement(node->update);
+     visitStatement(node->body);
++    return 0;
+   }
+   int visitBlockStatement(BlockStatement *node) override {
+     for (auto stmt : node->body) {
+       visitStatement(stmt);
+     }
++    return 0;
+   }
+   int visitReturnStatement(ReturnStatement *node) override {
+     tokens.push_back("Ret");
+     visitExpression(node->value);
++    return 0;
+   }
+ 
+   int visitIntegerLiteral(IntegerLiteral *node) override {
+     // Ignore
++    return 0;
+   }
+   int visitVariable(Variable *node) override {
+     // Ignore
++    return 0;
+   }
+   int visitCallExpression(CallExpression *node) override {
+     std::string f = node->func;
+@@ -139,6 +148,7 @@
+     for (auto expr : node->args) {
+       visitExpression(expr);
+     }
++    return 0;
+   }
+ };
+ 
